@@ -1,0 +1,23 @@
+
+<?php
+if (! empty($_POST["send"])) {
+	$mgapp_number = $_POST['mgapp_number'];
+	$name = $_POST['name'];
+	$email = $_POST['email'];
+	$phone = $_POST['phone'];
+	$address = $_POST['address'];
+	$aadhaar = $_POST['aadhaar'];
+	$religion = $_POST['religion'];
+	$gender = $_POST['gender'];
+	$app_id = $_POST['app_id'];
+
+    $conn = mysqli_connect("localhost", "root", "form", "application_data") or die("Connection Error: " . mysqli_error($conn));
+    $stmt = $conn->prepare("INSERT INTO form (mgapp_number,name,email,phone,address,aadhaar,religion,gender,app_id ) VALUES (?, ?, ?, ?)");
+    $stmt->bind_param("issisissi", $mgapp_number, $name, $email, $phone, $address, $aadhaar, $religion, $gender, $app_id);
+    $stmt->execute();
+    $message = "Your contact information is saved successfully.";
+    $type = "success";
+    $stmt->close();
+    $conn->close();
+}
+?>
